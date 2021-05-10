@@ -4,7 +4,7 @@
 {!!Form::submit()!!}
 {{ Form::close() }} --}}
 
-{{dd($data)}}
+{{$data}}
 {{--  <form  action="http://inquiry3.local/admin/logout" method="POST"> 
 @csrf
 {!! Form::submit('louout',) !!}

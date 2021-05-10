@@ -4,11 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+
 use App\Http\Requests\InputRequest;
 use App\Http\Requests\SignUpRequest;
-use App\Model\Inquiry;
-use App\Model\Question;
-use App\Question as AppQuestion;
+use App\Model\Contact;
+use App\Model\Hobby;
+// use App\Question as AppQuestion;
 use App\Mail\CotactMail;
 use Illuminate\Support\Facades\Mail;
 use Symfony\Component\Console\Question\Question as QuestionQuestion;
@@ -16,71 +17,83 @@ use Symfony\Component\Console\Question\Question as QuestionQuestion;
 class ContactController extends Controller
 {
 
-  
+
     public function input(Request $request)
     {
-        $inquiry = new Inquiry();
-       
-        $inquiry->fill([
-        'name' => $request->name, 
-        'e_mail'=> $request->e_mail, 
-        // 'question' => $questions,
-        'category' => $request->category,
-        'date' => $request->date,
-        'time_start' => $request->time_start,
-        'time_end' => $request->time_end,
-        'course' => $request->course,
-        'comment' => $request->comment,
-        'login_id'=> $request->login_id,
-        'login_pass' => $request->login_pass,
-        ]);
-      
-        // questionの要素数モデルQuestionを要素数分newしてsabveManyする
-        $inquiry->setQuestions($this->initQuestion($request));
-    //    if($request){
-    //     $questions = array_fill(0,4, new Question);
-    //     $inquiry->questions = $questions;
-    //     $data['inquiry'] = $inquiry;
-      
-    //    }
-    
-        // $question = new Question();
-        // $question->fill(['question' => $request->question,]);
-        
+        $inquiry = new Contact();
+        // $hobbys = new Hobby();
+        // $hobbys->fill([
+        //     'hobby' => $request->hobby,
+        //     ]);
 
-        
-     
+        $inquiry->fill([
+        'name' => $request->name,
+        // 'hobby'=> $request->hobby,
+        'food'=> $request->food,
+        'area' => $request->area,
+        'login' => $request->login,
+        'password' => $request->password,
+
+        ]);
+
+        // questionの要素数モデルQuestionを要素数分newしてsabveManyする
+        $inquiry->setHobbys($this->initHobby($request));
+    //    if($request){
+    //     $hobbys = array_fill(0,4, new Hobby);
+    //     $inquiry->hobby = $hobbys;
+    //     $data['inquiry'] = $inquiry;
+
+    //    }
+
+        // $hobbys = new Hobby();
+        // $hobbys->fill([
+        //     'hobby' => $request->hobby,
+        //     ]);
+
+// questionの要素数モデルQuestionを要素数分newしてsabveManyする
+        // foreach($request->hobby as $i =>$v){
+        //     $hobbys = new Hobby(['hobby' => $v]);
+        //     $hobbys[] = $hobbys;
+        // }
+
+
         // $questions = $question->fill($request->all());
         // Configはパラメーターに渡さなくていいs
         // $test = config('form.question');
 
-        return view('contact.input',['inquiry'=> $inquiry]);
+        return view('contact.input',['inquiry'=> $inquiry,]);
     }
 
-    public function signup(InputRequest $request){
-        $inquiry = new Inquiry();
-      
+    public function confirm(InputRequest $request){
+        $inquiry = new Contact();
+
         $inquiry->fill([
-        'name' => $request->name, 
-        'e_mail'=> $request->e_mail, 
-        // 'question' => $question,
-        'category' => $request->category,
-        'date' => $request->date,
-        'time_start' => $request->time_start,
-        'time_end' => $request->time_end,
-        'course' => $request->course,
-        'comment' => $request->comment,
-        'login_id'=> $request->login_id,
-        'login_pass' => $request->login_pass,
+        'name' => $request->name,
+        // 'hobby'=> $request->hobby,
+        'food'=> $request->food,
+        'area' => $request->area,
+        'login' => $request->login,
+        'password' => $request->password,
         ]);
-      
-        // questionの要素数モデルQuestionを要素数分newしてsabveManyする
-        // foreach($request->question as $i =>$v){
-        //     $question = new Question(['question' => $v]);
+
+        $hobbys = new Hobby();
+        $hobbys->fill(['hobby' => $request->hobby,]);
+//  questionの要素数モデルQuestionを要素数分newしてsabveManyする
+        // foreach($request->hobby as $i =>$v){
+        //     $question = new Hobby(['question' => $v]);
         //     $questions[] = $question;
         // }
-        
-        $inquiry->setQuestions($this->initQuestion($request));
+        // $inquiry->setHobbys($this->initHobby($request));
+    //    if($request){
+    //     $hobbys = array_fill(0,4, new Hobby);
+    //     $inquiry->hobby = $hobbys;
+    //     $data['inquiry'] = $inquiry;
+
+    //    }
+
+
+
+        // $inquiry->setQuestions($this->initQuestion($request));
             // $question = new Question();
             // $question->fill(['question'=>$request->question]);
             // $questions = [];
@@ -101,115 +114,52 @@ class ContactController extends Controller
         //     $a,
         //     $b,
         // ]);
-        
-     
-      
-        return view('contact.signup',['inquiry'=> $inquiry]);
-    }
-    public function confirm(SignUpRequest $request){
-        $inquiry = new Inquiry();
-        
-        $inquiry->fill([
-            'name' => $request->name, 
-            'e_mail'=> $request->e_mail, 
-            // 'question' => $request->question,
-            'category' => $request->category,
-            'date' => $request->date,
-            'time_start' => $request->time_start,
-            'time_end' => $request->time_end,
-            'course' => $request->course,
-            'comment' => $request->comment,
-            'login_id'=> $request->login_id,
-            'login_pass' => $request->login_pass,]);
-    
-            $question = new Question();
-            $question->fill(['question' => $request->question,]);
-        return view('contact.confirm',['inquiry'=> $inquiry,'question'=> $question]);
 
-    }
 
+
+        return view('contact.confirm',['inquiry'=> $inquiry,'hobbys'=>$hobbys]);
+    }
     public function complete(Request $request){
-        $inquiry = new Inquiry();
+        $inquiry = new Contact();
+
         $inquiry->fill([
-        'name' => $request->name, 
-        'e_mail'=> $request->e_mail, 
-        // 'question' =>$inquiry->questions(),
-        'category' => $request->category,
-        'date' => $request->date,
-        'time_start' => $request->time_start,
-        'time_end' => $request->time_end,
-        'course' => $request->course,
-        'comment' => $request->comment,
-        'login_id'=> $request->login_id,
-        'login_pass' => $request->login_pass,
+        'name' => $request->name,
+        // 'hobby'=> $request->hobby,
+        'food'=> $request->food,
+        'area' => $request->area,
+        'login' => $request->login,
+        'password' => $request->password,
         ]);
-        $inquiry->save();       
-        
-        // questionの要素数モデルQuestionを要素数分newしてsabveManyする
-            
-        // foreach($request->question as $i =>$v){
-        //     $question = new Question(['question' => $v]);
-        //     $questions[] = $question;
-        // }
-        // $inquiry->questions()->saveMany($questions);
-
-        $questions=[];
-        foreach($request->question as $i =>$v){
-            $questions[] = array_push($question,new Question(['question' => $v]));
+        $inquiry->save(); 
+        $hobbys=[];
+        // var_dump($request->hobby);exit;
+        foreach($request->hobby as $i =>$v){
+            $hobbys[] = array_push($hobbys,new Hobby(['hobby' => $v]));
         }
-        $inquiry->questions()->saveMany($questions);
-        // $questions=array_fill(0, $count, new Question(['question' => $question_v],));
-        // $inquiry->questions = $questions;
-        // var_dump($inquiry->questions);exit;
-       
-        // $b = new Question(["question"=>"チキショー"]);
-        // $a->fill(["question"=>"バーロ"]);
-        // $b->fill(["question"=>"チキショー"]);
-        // $question->fill(['contact_id'=>3,'question'=>'てやんでい']);
-      
-        // $question->fill($request->all());
-        
-     
-        
-        // Mail::to($contact->email)
-        //     ->send(new ContactMail($contact)); // 引数にリクエストデータを渡す
+        dd($hobbys);exit;
+        $inquiry->hobbys()->saveMany($hobbys);
+        // $hobbys = new Hobby();
+        // $hobbys->fill([
+        //     'contact' => $
+        //     'hobby' => $request->hobby,]);
 
-      
-      
-        return view('contact.complete',['inquiry'=> $inquiry]);
+        return view('contact.confirm',['inquiry'=> $inquiry]);
 
-        
-     
     }
 
 
-    // public function signup(Request $request)
-    // {
-      
-    //     //  バリデーションを実行（結果に問題があれば処理を中断してエラーを返す）
-    //     $validator=[
-    //         'name' => 'required',
-    //         'e_mail' => 'required|email',
-            
-    //     ];
-    //     // $name = $request->name;
-    //     // $e_mail = $request->e_mail;
-    //     $this->validate( $request, $validator );
 
-       
-    //     // return view('contact.signup');
-    //     //フォームから受け取ったすべてのinputの値を取得
-    //     // $inputs = $request->all();
 
-    //     //入力内容確認ページのviewに変数を渡して表示
- 
-    // }
-    private function initQuestion($request){
-        $questions=[];
-        foreach($request->question as $k => $v){
-            array_push($questions,new Question(['form_id'=>$k ,'question' => $v]));
+    private function initHobby($request){
+        $hobbys=[];
+        if ($request->hobby  != null && is_array($request->hobby )){
+            foreach($request->hobby as $k => $v){
+                array_push($hobbys,new Hobby(['form_id'=>$k ,'hobby' => $v]));
+            }
         }
-        return $questions;
+
+        return $hobbys;
     }
- 
+
+
 }

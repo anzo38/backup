@@ -33,7 +33,7 @@
              <h3 class="card-title">お問合わせフォーム</h3>
         </div>
 
-        {{Form::model($inquiry,['url'=>['/contact/confirm']]) }}
+        {{Form::model($inquiry,['url'=> Config('app.url').'/contact/confirm']) }}
 
 
 
@@ -82,14 +82,14 @@
                     </div>
                     <div class="form-group">
                         <p>ID（半角英数字のみ）</p>
-                        <span class="error">@error('login_id')<p>{{ $message }}</p>@enderror</span>
-                         {{ Form::text('login_id', null) }}
+                        <span class="error">@error('login')<p>{{ $message }}</p>@enderror</span>
+                         {{ Form::text('login', null) }}
                     </div>
 
                     <div class="form-group">
                         <p>パスワード</p>
-                         <span class="error">@error('login_pass')<p>{{ $message }}</p>@enderror</span>
-                         {{ Form::password('login_pass', null) }}
+                         <span class="error">@error('password')<p>{{ $message }}</p>@enderror</span>
+                         {{ Form::password('password', null) }}
                     </div>
                     <div class="form-group">
                         <p>パスワード再入力</p>

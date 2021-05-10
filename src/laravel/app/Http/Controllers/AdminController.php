@@ -18,7 +18,7 @@ class AdminController extends Controller
     public function member(\App\Services\Csvdownload $csvdownload) {
         // $data = $this->app->make(\App\Services\CsvDownload::class);
         $data = $csvdownload->download();
-       dd( $data);
+    //    dd( $csvdownload->download());
         // if(Auth::guard('gust')->attempt( ['email'=>$request['email'],
         //     'password'=>$request['password']] ) )
         // {
