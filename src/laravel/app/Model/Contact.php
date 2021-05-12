@@ -3,7 +3,7 @@
 namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
-
+use App\Model\Hobby;
 class Contact extends Model
 {
     /**
@@ -22,7 +22,7 @@ class Contact extends Model
     const CREATED_AT = null;
 
     //モデルのQuestion群が保存されている配列
-    private $hobby = [];
+   public $hobbys = [];
 
 
 
@@ -37,7 +37,7 @@ class Contact extends Model
         $this->attributes = [
             'name' =>"",
             'food' =>"",
-            // 'hobby' =>"",
+            'hobby' =>"",
             'area' =>"",
             'login' => "",
             'password' => "",
@@ -46,7 +46,7 @@ class Contact extends Model
         $this->fillable = [
             'name',
             'food',
-            // 'hobby',
+            'hobby',
             'area',
             'login',
             'password',
@@ -56,7 +56,8 @@ class Contact extends Model
 
     public function hobbys()
     {
-        return $this->hasMany('App\Model\Hobby','contact_id');
+       
+        return $this->hasMany('App\Model\Hobby');
     }
 
     public function setHobbys(Array $hobbys){

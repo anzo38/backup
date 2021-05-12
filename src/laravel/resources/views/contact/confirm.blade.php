@@ -1,6 +1,6 @@
 {{$inquiry->name}}
 {{-- {{dd($hobbys->hobby)}}exit; --}}
-@foreach($hobbys->hobby as $k => $v)
+@foreach($inquiry->hobby as $k => $v)
 {{$v}}
 @endforeach
 {{$inquiry->food}}
@@ -11,7 +11,7 @@
 
 {{Form::model($inquiry,['url'=> Config('app.url').'/contact/input']) }}
 {{Form::hidden('name', $inquiry['name'])}}
-@foreach($hobbys['hobby'] as $k => $v)
+@foreach($inquiry['hobby'] as $k => $v)
 {{Form::hidden('hobby[]', $v)}}
 @endforeach
 {{Form::hidden('food', $inquiry['food'])}}
@@ -22,7 +22,7 @@
 
 {{Form::model($inquiry,['url'=> Config('app.url').'/contact/complete']) }}
 {{Form::hidden('name', $inquiry['name'])}}
-@foreach($hobbys['hobby'] as $k => $v)
+@foreach($inquiry['hobby'] as $k => $v)
 {{Form::hidden('hobby[]', $v)}}
 @endforeach
 {{Form::hidden('food', $inquiry['food'])}}

@@ -49,21 +49,36 @@
 
 
                     <div class="form-group">
-                        {{ Form::label('hobby', '聞きたい内容') }}
+                        {{ Form::label('hobby', '趣味') }}
                         <span class="error">@error('hobby')<p>{{ $message }}</p>@enderror</span>
+                        
                         @foreach (config('const.form.hobby') as $key => $value)
-                        {{Form::checkbox('hobby[]', $key,false)}}{{ $value }}
-                            {{-- @foreach($inquiry->getQuestions() as $key_question => $question_model)
-                                @if($question_model->question == $key)
-                                    {{Form::checkbox('question[]', $key,true)}}{{ $value }}
-                                    @break
-                                @endif
-                                @if($loop->last)
-                                    {{Form::checkbox('question[]', $key,false)}}{{ $value }}
-                                @endif
-                            @endforeach --}}
+                        {{-- {{Form::checkbox('hobby[]', $key,false)}}{ $value }} --}}
+                            @foreach($inquiry->getHobbys() as $key_question => $question_model)
+                               
+                                @if($question_model->hobby== $key)
+                                    {{Form::checkbox('hobby[]', $key,true)}}{{ $value }}
+                                    {{-- @break --}}
+                                    @endif
+                            @endforeach
+                           
 
-                        @endforeach
+                            {{Form::checkbox('hobby[]', $key,false)}}{{ $value }}
+                           
+                    @endforeach
+                     
+                        {{-- @foreach($inquiry->getHobbys() as $key_hobby => $hobby_model)
+                                
+                        @if($hobby_model->hobby == $key)
+                            {{Form::checkbox('hobby[]', $key,true)}}{{ $value }}
+                            @break
+                        @endif
+
+                        @if($loop->last)
+                            {{Form::checkbox('hobby[]', $key,false)}}{{ $value }}
+                        @endif
+                    @endforeach --}}
+                       
                     </div>
                     <div class="form-group">
                         {{ Form::label('food', '食べ物') }}

@@ -16,35 +16,8 @@ class AdminController extends Controller
     }
 
     public function member(\App\Services\Csvdownload $csvdownload) {
-        // $data = $this->app->make(\App\Services\CsvDownload::class);
+       
         $data = $csvdownload->download();
-    //    dd( $csvdownload->download());
-        // if(Auth::guard('gust')->attempt( ['email'=>$request['email'],
-        //     'password'=>$request['password']] ) )
-        // {
-        //     #繊維したいページを指定。
-        //     return redirect()->route('admin');
-        // }
- 
-        #繊維したいページを指定。
-        // return redirect()->route('admin_login');
-
-        // $contact = (new Contact())->fill($request->all());
-        // $contacts=Contact::all();
-        // $contact=Contact::all();
-        // dd($contacts);exit;
-        // if(Auth::check()){
-        //         //    $this->redirect();
-        //         return view('admin.member');
-               
-        
-                
-        //         }else{
-        
-        //             return view('admin.login');
-        //         }
-              
-    
         return view('admin.member',['data'=> $data,]);
     }
 

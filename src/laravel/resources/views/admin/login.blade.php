@@ -10,7 +10,7 @@
                 <div class="card-body">
                
                     {{--  <form method="POST" action="{{ route('login') }}">  --}}
-                     <form method="post" action={{Config('app.url')."/admin/login1"}}> 
+                     <form method="post" action={{Config('app.url')."/admin/login"}}> 
                     {{-- <form method="post" action=""> --}}
                         @csrf
 

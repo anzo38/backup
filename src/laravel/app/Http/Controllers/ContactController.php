@@ -6,13 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Http\Requests\InputRequest;
-use App\Http\Requests\SignUpRequest;
 use App\Model\Contact;
 use App\Model\Hobby;
-// use App\Question as AppQuestion;
-use App\Mail\CotactMail;
-use Illuminate\Support\Facades\Mail;
-use Symfony\Component\Console\Question\Question as QuestionQuestion;
+
 
 class ContactController extends Controller
 {
@@ -28,15 +24,16 @@ class ContactController extends Controller
 
         $inquiry->fill([
         'name' => $request->name,
-        // 'hobby'=> $request->hobby,
+        'hobby'=> $request->hobby,
         'food'=> $request->food,
         'area' => $request->area,
         'login' => $request->login,
         'password' => $request->password,
 
         ]);
-
+// dd($inquiry->hobby);exit;
         // questionの要素数モデルQuestionを要素数分newしてsabveManyする
+
         $inquiry->setHobbys($this->initHobby($request));
     //    if($request){
     //     $hobbys = array_fill(0,4, new Hobby);
@@ -69,16 +66,19 @@ class ContactController extends Controller
 
         $inquiry->fill([
         'name' => $request->name,
-        // 'hobby'=> $request->hobby,
+        'hobby'=> $request->hobby,
         'food'=> $request->food,
         'area' => $request->area,
         'login' => $request->login,
         'password' => $request->password,
         ]);
 
-        $hobbys = new Hobby();
-        $hobbys->fill(['hobby' => $request->hobby,]);
-//  questionの要素数モデルQuestionを要素数分newしてsabveManyする
+        // $hobbys = new Hobby();
+        // $hobbys->fill(['hobby' => $request->hobby,]);
+    // questionの要素数モデルQuestionを要素数分newしてsabveManyする
+
+   $inquiry->setHobbys($this->initHobby($request));
+    // dd($r);exit;
         // foreach($request->hobby as $i =>$v){
         //     $question = new Hobby(['question' => $v]);
         //     $questions[] = $question;
@@ -117,31 +117,30 @@ class ContactController extends Controller
 
 
 
-        return view('contact.confirm',['inquiry'=> $inquiry,'hobbys'=>$hobbys]);
+        return view('contact.confirm',['inquiry'=> $inquiry,]);
     }
     public function complete(Request $request){
         $inquiry = new Contact();
 
         $inquiry->fill([
         'name' => $request->name,
-        // 'hobby'=> $request->hobby,
+        'hobby'=> $request->hobby,
         'food'=> $request->food,
         'area' => $request->area,
         'login' => $request->login,
         'password' => $request->password,
         ]);
+        // dd( $request->hobby);
+        unset($inquiry->hobby);
         $inquiry->save(); 
         $hobbys=[];
         // var_dump($request->hobby);exit;
         foreach($request->hobby as $i =>$v){
-            $hobbys[] = array_push($hobbys,new Hobby(['hobby' => $v]));
+            // $hobbys[] = array_push($hobbys,new Hobby(['hobby' => $v]));
+            $hobbys[] =new Hobby(['hobby' => $v]);
         }
-        dd($hobbys);exit;
+      
         $inquiry->hobbys()->saveMany($hobbys);
-        // $hobbys = new Hobby();
-        // $hobbys->fill([
-        //     'contact' => $
-        //     'hobby' => $request->hobby,]);
 
         return view('contact.confirm',['inquiry'=> $inquiry]);
 
@@ -152,9 +151,10 @@ class ContactController extends Controller
 
     private function initHobby($request){
         $hobbys=[];
-        if ($request->hobby  != null && is_array($request->hobby )){
+        if ($request->hobby != null && is_array($request->hobby)){
             foreach($request->hobby as $k => $v){
                 array_push($hobbys,new Hobby(['form_id'=>$k ,'hobby' => $v]));
+                // $hobbys=new Hobby(['hobby' => $v]);
             }
         }
 
