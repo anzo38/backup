@@ -17,15 +17,23 @@ class  CsvDownload
      * @param string $filename
      * @return \Illuminate\Http\Response
      */
-    public function download()
+
+
+    
+    public function download($contact_id)
     {
 
         $csv_data="id,氏名,好きな食べ物, お住まいの地域, ログインID,パスワード"."\r\n";
-      
+        // $contact_id=$id;
+        // $item = Contact::find($contact_id);
+        $contacts=Contact::select('id')->with('hobby')->get()->toarray(); 
         $d_q='"';
-        // $contacts=Contact::all();
-        $contacts=Contact::with('hobbys')->get()->toarray();
-       
+        $empty="空";
+        // $contacts=Contact::select('id')->with('hobby')->get()->toarray(); 
+        // $contacts=Contact::with('hobbys:hobby,contact_id')->get()->toarray();
+        
+        
+    //    dd($item);exit;
     
     //    dd($contacts);exit;
     // foreach ($contacts as $r =>$e){
@@ -48,8 +56,13 @@ class  CsvDownload
             $csv_data.= $d_q .  $v['name'] . $d_q .",";
             
            foreach( $v['hobbys'] as $o => $c){
-            //    echo $c['hobby'];
-               $csv_data.= $d_q .  $c['hobby'] . $d_q .",";
+          
+               $csv_data.= $d_q .  $c['hobby'] . $d_q .","."\r\n";
+               if(empty($c['hobby'])){
+                $csv_data.= $d_q .   $empty . $d_q .",";
+                break;
+               }
+            //    break;
            }
           
               
@@ -57,7 +70,7 @@ class  CsvDownload
             $csv_data.= $d_q .  $v['food'] . $d_q .",";
             $csv_data.= $d_q .  $v['area'] . $d_q .",";
             $csv_data.= $d_q .  $v['login'] . $d_q .",";
-            $csv_data.= $d_q .  $v['password'] . $d_q .","."\r\n";;
+            $csv_data.= $d_q .  $v['password'] . $d_q .","."\r\n";
             // $csv_data.= $d_q .  $v['hobbys']['hobby'] . $d_q .",
             
         
@@ -104,6 +117,9 @@ class  CsvDownload
             // return $contact;
     }
 
-
+    public function getContactTableId(){
+        $contact_id = Contact::select('id')->get();
+        return $contact_id;
+    }
   
 }

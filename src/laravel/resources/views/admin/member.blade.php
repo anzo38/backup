@@ -1,15 +1,6 @@
-{{-- {!! $contacts !!}
-{{ Form::model($contacts, ['url'=>'http://inquiry3.local/admin/download']) }} 
- ffffff
-{!!Form::submit()!!}
-{{ Form::close() }} --}}
+ {{-- @foreach($contact_id as $k =>$v) --}}
+{{-- {{$v['id']."/r\n"}} --}}
+<a href="{{ action('AdminController@downloads', $v['id']) }}">{{ 'download'.$v['id'] }}</a><br>
+{{-- {{Form::open(['url' => route('.index', ['id' => '1']), 'method' => 'get'])}} --}}
+@endforeach 
 
-{{$data}}
-{{--  <form  action="http://inquiry3.local/admin/logout" method="POST"> 
-@csrf
-{!! Form::submit('louout',) !!}
-
-</form>  --}}
-                             
-
-                        {{--  サービスコンテナさーびすプロバイダーを登録してサービス内CSVビジネスロジックで  --}}

@@ -32,6 +32,7 @@ Route::post('/admin/login', ['as' => '.login', 'uses' => 'Auth\LoginController@L
 
 
 Route::get('/admin/member', ['as' => '.admin', 'uses' => 'AdminController@member']);
+Route::get('/admin/downloads/{id?}', ['as' => '.admin', 'uses' =>'AdminController@downloads']);
 
 // Auth::routes();
 
