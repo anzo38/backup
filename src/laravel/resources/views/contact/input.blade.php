@@ -1,10 +1,4 @@
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 3 | Log in</title>
-  <!-- Tell the browser to be responsive to screen width -->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.main')
 {{--
   <!-- Font Awesome -->
   <link rel="stylesheet" href="./css/admin_lte/plugins/fontawesome-free/css/all.min.css">
@@ -16,18 +10,18 @@
   <link rel="stylesheet" href="./css/admin_lte/dist/css/adminlte.min.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">  --}}
-  <title>ログインフォーム</title>
+  {{-- <title>ログインフォーム</title>
 
 <style>
  .error{
      color:red;
      font-size:small;
  }
-</style>
+</style> --}}
 
-</head>
-  <body class="hold-transition login-page">
-      
+{{-- </head> --}}
+  {{-- <body class="hold-transition login-page"> --}}
+    @section('content')
     <div class="card card-primary">
         <div class="card-header">
              <h3 class="card-title">お問合わせフォーム</h3>
@@ -49,42 +43,37 @@
 
 
                     <div class="form-group">
+                        
                         {{ Form::label('hobby', '趣味') }}
                         <span class="error">@error('hobby')<p>{{ $message }}</p>@enderror</span>
-                        
+
                         @foreach (config('const.form.hobby') as $key => $value)
-                        {{-- {{Form::checkbox('hobby[]', $key,false)}}{ $value }} --}}
-                            @foreach($inquiry->getHobbys() as $key_question => $question_model)
-                               
-                                @if($question_model->hobby== $key)
-                                    {{Form::checkbox('hobby[]', $key,true)}}{{ $value }}
-                                    {{-- @break --}}
+                        
+                            {{-- 通常(get) --}}
+                            @if(!$inquiry->getHobbys())
+                            {{Form::checkbox('hobby[]', $key,false)}}{{ $value }}
+                            @endif
+                            {{-- リクエストがあったとき --}}
+                            @if($inquiry->getHobbys())
+                                @foreach($inquiry->getHobbys() as $hobby_key => $hobby_model)
+                                    @if($hobby_model->hobby == $key)
+                                        {{Form::checkbox('hobby[]', $key,true)}}{{ $value }}
+                                        @break
                                     @endif
-                            @endforeach
-                           
-
-                            {{Form::checkbox('hobby[]', $key,false)}}{{ $value }}
-                           
-                    @endforeach
-                     
-                        {{-- @foreach($inquiry->getHobbys() as $key_hobby => $hobby_model)
-                                
-                        @if($hobby_model->hobby == $key)
-                            {{Form::checkbox('hobby[]', $key,true)}}{{ $value }}
-                            @break
-                        @endif
-
-                        @if($loop->last)
-                            {{Form::checkbox('hobby[]', $key,false)}}{{ $value }}
-                        @endif
-                    @endforeach --}}
-                       
+                                    {{-- なかったとき --}}
+                                    @if($loop->last)
+                                        {{Form::checkbox('hobby[]', $key,false)}}{{ $value }}
+                                    @endif
+                                @endforeach
+                            @endif
+                        @endforeach
                     </div>
+
                     <div class="form-group">
                         {{ Form::label('food', '食べ物') }}
                         <span class="error">@error('food')<p>{{ $message }}</p>@enderror</span>
                         @foreach (config('const.form.food') as $key => $value)
-                        {{Form::radio('food', $value) }}{{ $value }}
+                        {{Form::radio('food', $key) }}{{ $value }}
                         @endforeach
                     </div>
 
@@ -118,12 +107,12 @@
 
     </div>
 
-
+    @endsection
   {{--  <!-- jQuery -->
   <script src="./css/admin_lte/plugins/jquery/jquery.min.js"></script>
   <!-- Bootstrap 4 -->
   <script src="./css/admin_lte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
   <!-- AdminLTE App --
   <script src="./css/admin_lte/dist/js/adminlte.min.js"></script>  --}}
-</body>
-</html>
+{{-- </body>
+</html> --}}

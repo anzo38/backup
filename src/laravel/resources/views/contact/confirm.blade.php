@@ -1,3 +1,5 @@
+@extends('layouts.main')
+@section('content')
 {{$inquiry->name}}
 {{-- {{dd($hobbys->hobby)}}exit; --}}
 @foreach($inquiry->hobby as $k => $v)
@@ -31,3 +33,4 @@
 {{Form::hidden('password', $inquiry['password'])}}
 {{Form::submit('送信', ['class'=>'submit'])}}
 {{ Form::close() }}
+@endsection

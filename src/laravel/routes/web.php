@@ -21,6 +21,7 @@ Route::post('/contact/confirm', ['as' => 'confirm', 'uses' => 'ContactController
 
 Route::post('/contact/complete', ['as' => 'complete', 'uses' => 'ContactController@complete']);
 
+Route::get('/contact/test', ['as' => '.login', 'uses' => 'ContactController@test']);
 
 
 // register
@@ -33,7 +34,6 @@ Route::post('/admin/login', ['as' => '.login', 'uses' => 'Auth\LoginController@L
 
 Route::get('/admin/member', ['as' => '.admin', 'uses' => 'AdminController@member']);
 Route::get('/admin/downloads/{id?}', ['as' => '.admin', 'uses' =>'AdminController@downloads']);
-
 // Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');
