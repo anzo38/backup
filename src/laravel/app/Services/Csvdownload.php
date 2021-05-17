@@ -3,6 +3,7 @@
 namespace App\Services;
 use App\Model\Contact;
 use App\Model\Hobby;
+use Illuminate\Support\Facades\Config;
 
 class  CsvDownload
 {
@@ -19,51 +20,61 @@ class  CsvDownload
      */
 
 
-    
+    // contactsテーブルのID（$contact_id）ごとの行をCSVで取得する
     public function download($contact_id)
-    {
-
+    { 
+       
         $csv_data="id,氏名,趣味,好きな食べ物,お住まいの地域,ログインID,パスワード"."\r\n";
-        // $contact_id=$id;
-        // $item = Contact::find($contact_id);
-        // $contacts=Contact::select('id')->with('hobby')->get()->toarray(); 
         $d_q='"';
-        $empty="空";
+        // 文字への変換
+        $convert_hobby= config('const.form.hobby');
+        $convert_food= config('const.form.food');
+        $convert_area= config('const.form.area');
+        // // DBから値を取得
+        $contacts_table = Contact::find($contact_id)->toarray();
+        $hobbys_table= Hobby::where('contact_id',$contact_id)->get();
         
         // $contacts=Contact::select('id')->with('hobby')->get()->toarray(); 
-        $contacts=Contact::with('hobbys:hobby,contact_id')->get()->toarray();
-        
-//    dd($contacts);exit;
-        foreach ($contacts as $k => $v) {
+        // $contacts_table=Contact::with('hobbys:hobby,contact_id')->get()->toarray();
       
-            $csv_data.= $d_q .  $v['id'] . $d_q .",";
-            $csv_data.= $d_q .  $v['name'] . $d_q .",";
-            
-            dd($v['hobbys']);exit;
-              
-            foreach( $v['hobbys'] as $o => $c){
-              if($c==[]){
-                    $c[]=$c['hobby']['hobby'];
-                    $csv_data.= $d_q .  $c . $d_q .",";
-                }
-             
-                $csv_data.= $d_q .  $c['hobby']['hobby'] . $d_q .",";
-                dd($c['hobby']);
-                }
-             
-            $csv_data.= $d_q .  $v['food'] . $d_q .",";
-            $csv_data.= $d_q .  $v['area'] . $d_q .",";
-            $csv_data.= $d_q .  $v['login'] . $d_q .",";
-
-        
-            $csv_data.= $d_q .  $v['password'] . $d_q .","."\r\n";
-            // $csv_data.= $d_q .  $v['hobbys']['hobby'] . $d_q .",
-            
-        
-        
+        // contactsテーブルの1行を取得
+        foreach ($contacts_table as $k => $v) {
+            // dd($k);exit;
+            if($k == 'id'){
+                $id=  $v;
+            }
+            if($k == 'name'){
+                $name=  $v;
+            }
+            if($k == 'food'){
+                $food=  $v;
+            }
+            if($k == 'area'){
+                $area=  $v;
+            }
+            if($k == 'login'){
+                $login=  $v;
+            }
+            if($k == 'password'){
+                $password=  $v;
+            }
+       
         }
-      
+        // hobbysテーブルから値（配列）を取得
+        foreach($hobbys_table as $k => $v){
+            $hobbys[]= $convert_hobby[$v['hobby']];
+        }
+        // 文字列へ変換
+        $hobbys_value=implode(',', $hobbys);
 
+        $csv_data.= $d_q .  $id. $d_q .",";
+        $csv_data.= $d_q .  $name. $d_q .",";
+        $csv_data.= $d_q . $hobbys_value . $d_q .",";
+        $csv_data.= $d_q .  $convert_food[$food] . $d_q .",";
+        $csv_data.= $d_q .   $convert_area[$area] . $d_q .",";
+        $csv_data.= $d_q .  $login . $d_q .",";
+        $csv_data.= $d_q .  $password . $d_q .","."\r\n";  
+       
             //CSVダウンロード
             $csv_name = date('Ymd-His') . '.csv';
             header('Content-Type: text/csv');
@@ -72,7 +83,7 @@ class  CsvDownload
             echo $csv_data;
             return $csv_data;
           
-            // return $contact;
+           
     }
 
     public function getContactTableId(){
@@ -80,4 +91,6 @@ class  CsvDownload
         return $contact_id;
     }
   
+   
+
 }
