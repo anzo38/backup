@@ -21,8 +21,9 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const HOME = 'https://inquiry3.local/admin/member';
-
+   
+    // public const HOME = Config('app.url')."/admin/member";
+    public const HOME = '/admin/member';
     /**
      * Define your route model bindings, pattern filters, etc.
      *

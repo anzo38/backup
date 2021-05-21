@@ -3,7 +3,7 @@
 namespace App\Services;
 use App\Model\Contact;
 use App\Model\Hobby;
-use Illuminate\Support\Facades\Config;
+// use Illuminate\Support\Facades\Config;
 
 class  CsvDownload
 {
@@ -26,7 +26,7 @@ class  CsvDownload
        
         $csv_data="id,氏名,趣味,好きな食べ物,お住まいの地域,ログインID,パスワード"."\r\n";
         $d_q='"';
-        // 文字への変換
+        // 文字への変換（↓はフロントの確認画面の際も必要、どうしたらいいか）
         $convert_hobby= config('const.form.hobby');
         $convert_food= config('const.form.food');
         $convert_area= config('const.form.area');
