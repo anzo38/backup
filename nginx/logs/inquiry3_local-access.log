@@ -1628,6 +1628,7 @@
 172.1.0.1 - - [17/May/2021:05:23:25 +0000] "GET /favicon.ico HTTP/1.1" 200 0 "https://inquiry3.local/contact/confirm" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36" "-"
 172.1.0.1 - - [17/May/2021:05:23:26 +0000] "POST /contact/input HTTP/1.1" 200 5377 "https://inquiry3.local/contact/confirm" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36" "-"
 172.1.0.1 - - [17/May/2021:05:23:26 +0000] "GET /favicon.ico HTTP/1.1" 200 0 "https://inquiry3.local/contact/input" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36" "-"
+<<<<<<< HEAD
 172.1.0.1 - - [17/May/2021:05:38:33 +0000] "POST /contact/input HTTP/1.1" 200 5377 "https://inquiry3.local/contact/confirm" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36" "-"
 172.1.0.1 - - [17/May/2021:05:38:33 +0000] "GET /favicon.ico HTTP/1.1" 200 0 "https://inquiry3.local/contact/input" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36" "-"
 172.1.0.1 - - [17/May/2021:05:44:17 +0000] "POST /contact/input HTTP/1.1" 200 5867 "https://inquiry3.local/contact/confirm" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36" "-"
@@ -5488,3 +5489,5 @@
 172.1.0.1 - - [21/May/2021:05:34:19 +0000] "GET /favicon.ico HTTP/1.1" 200 0 "https://inquiry3.local/contact/complete" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36" "-"
 172.1.0.1 - - [21/May/2021:05:34:19 +0000] "GET /adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js.map HTTP/1.1" 200 318045 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36" "-"
 172.1.0.1 - - [21/May/2021:05:34:19 +0000] "GET /adminlte/dist/js/adminlte.min.js.map HTTP/1.1" 200 82896 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36" "-"
+=======
+>>>>>>> temp1
