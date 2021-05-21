@@ -33,7 +33,7 @@
 <!-- AdminLTE for demo purposes -->
 <script src="/adminlte/dist/js/demo.js"></script>
 <!-- Page specific script --> 
-{{-- <script>
+<script>
 $(function () {
   bsCustomFileInput.init();
 });
