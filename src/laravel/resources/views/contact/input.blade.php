@@ -44,11 +44,11 @@
                         {{ Form::label('food', '食べ物') }}
                         <span class="error">@error('food')<p>{{ $message }}</p>@enderror</span>
                         @foreach (config('const.form.food') as $key => $value)
-<<<<<<< HEAD
+
                         {{Form::radio('food', $key,) }}{{ $value }}
-=======
+
                         {{Form::radio('food', $key) }}{{ $value }}
->>>>>>> temp1
+
                         @endforeach
                     </div>
                     <div class="form-group">
