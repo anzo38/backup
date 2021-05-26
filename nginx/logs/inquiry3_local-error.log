@@ -299,3 +299,4 @@
 2021/05/21 02:21:46 [warn] 73#73: *88 an upstream response is buffered to a temporary file /var/cache/nginx/fastcgi_temp/0/01/0000000010 while reading upstream, client: 172.1.0.1, server: inquiry3.local, request: "GET /admin/login HTTP/1.1", upstream: "fastcgi://127.0.0.1:9000", host: "inquiry3.local", referrer: "https://inquiry3.local/admin/member"
 =======
 >>>>>>> temp1
+2021/05/25 09:43:24 [warn] 78#78: *21 an upstream response is buffered to a temporary file /var/cache/nginx/fastcgi_temp/1/00/0000000001 while reading upstream, client: 172.1.0.1, server: inquiry3.local, request: "GET /admin/member HTTP/1.1", upstream: "fastcgi://127.0.0.1:9000", host: "inquiry3.local", referrer: "https://inquiry3.local/admin/login"
